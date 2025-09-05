@@ -3,13 +3,15 @@ import React, { useState } from 'react';
 function BillCalculator() {
     const [amount, setAmount] = useState('');
     const [tax, setTax] = useState('');
+    const [tip, setTip] = useState('');
     const [total, setTotal] = useState(null);
 
     const calculateTotal = (e) => {
         e.preventDefault();
         const amt = parseFloat(amount) || 0;
         const taxAmt = parseFloat(tax) || 0;
-        const result = amt + (amt * taxAmt / 100);
+        const tipAmt = parseFloat(tip) || 0;
+        const result = amt + (amt * taxAmt / 100) + (amt * tipAmt / 100);
         setTotal(result.toFixed(2));
     };
 
@@ -24,6 +26,11 @@ function BillCalculator() {
                 <div>
                     <label>Tax (%): </label>
                     <input type="number" value={tax} onChange={e => setTax(e.target.value)} />
+                </div>
+                <div>
+                    <label>Tip (%): </label>
+                    <input type="number" value={tip} onChange={e => setTip(e.target.value)}
+                    />
                 </div>
                 <button type="submit">Calculate</button>
             </form>
